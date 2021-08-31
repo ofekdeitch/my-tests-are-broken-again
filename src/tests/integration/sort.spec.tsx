@@ -3,7 +3,7 @@ import { TestDriver } from "../common/driver";
 
 describe('Chat', () => {
 
-    describe('A, B, C', () => {
+    describe('When the order of creation is A, B, C', () => {
         const messageA = 'Expressive';
         const messageB = 'Robust';
         const messageC = 'Maintainable';
@@ -28,20 +28,38 @@ describe('Chat', () => {
             driver.stop();
         });
 
-        it('should sort messages by time of creation', () => {
-            const messages = screen.queryAllByTestId('message');
+        it('should render 3 messsages', () => {
+            const messages = getAllMessageElements();
             expect(messages).toHaveLength(3);
+        });
 
-            const [messageAElement, messageBElement, messageCElement] = messages;
+        it('the first message should be A', () => {
+            const messageElements = getAllMessageElements();
+            const firstMessageElement = messageElements[0];
 
-            expect(within(messageAElement).queryByText(messageA)).toBeInTheDocument();
-            expect(within(messageBElement).queryByText(messageB)).toBeInTheDocument();
-            expect(within(messageCElement).queryByText(messageC)).toBeInTheDocument();
+            const expectedContent = messageA;
+            expect(within(firstMessageElement).queryByText(expectedContent)).toBeInTheDocument();
+        });
+
+        it('the second message should be B', () => {
+            const messageElements = getAllMessageElements();
+            const secondMessageElement = messageElements[1];
+
+            const expectedContent = messageB;
+            expect(within(secondMessageElement).queryByText(expectedContent)).toBeInTheDocument();
+        });
+
+        it('the third message should be C', () => {
+            const messageElements = getAllMessageElements();
+            const thirdMessageElement = messageElements[2];
+
+            const expectedContent = messageC;
+            expect(within(thirdMessageElement).queryByText(expectedContent)).toBeInTheDocument();
         });
 
     });
 
-    describe('C, B, A', () => {
+    describe('When the order of creation is C, B, A', () => {
         const messageA = 'Expressive';
         const messageB = 'Robust';
         const messageC = 'Maintainable';
@@ -66,20 +84,38 @@ describe('Chat', () => {
             driver.stop();
         });
 
-        it('should sort messages by time of creation', () => {
-            const messages = screen.queryAllByTestId('message');
+        it('should render 3 messsages', () => {
+            const messages = getAllMessageElements();
             expect(messages).toHaveLength(3);
+        });
 
-            const [messageCElement, messageBElement, messageAElement] = messages;
+        it('the first message should be C', () => {
+            const messageElements = getAllMessageElements();
+            const firstMessageElement = messageElements[0];
 
-            expect(within(messageAElement).queryByText(messageA)).toBeInTheDocument();
-            expect(within(messageBElement).queryByText(messageB)).toBeInTheDocument();
-            expect(within(messageCElement).queryByText(messageC)).toBeInTheDocument();
+            const expectedContent = messageC;
+            expect(within(firstMessageElement).queryByText(expectedContent)).toBeInTheDocument();
+        });
+
+        it('the second message should be B', () => {
+            const messageElements = getAllMessageElements();
+            const secondMessageElement = messageElements[1];
+
+            const expectedContent = messageB;
+            expect(within(secondMessageElement).queryByText(expectedContent)).toBeInTheDocument();
+        });
+
+        it('the third message should be A', () => {
+            const messageElements = getAllMessageElements();
+            const thirdMessageElement = messageElements[2];
+
+            const expectedContent = messageA;
+            expect(within(thirdMessageElement).queryByText(expectedContent)).toBeInTheDocument();
         });
 
     });
 
-    describe('B, C, A', () => {
+    describe('When the order of creation is B, C, A', () => {
         const messageA = 'Expressive';
         const messageB = 'Robust';
         const messageC = 'Maintainable';
@@ -104,17 +140,39 @@ describe('Chat', () => {
             driver.stop();
         });
 
-        it('should sort messages by time of creation', () => {
-            const messages = screen.queryAllByTestId('message');
+        it('should render 3 messsages', () => {
+            const messages = getAllMessageElements();
             expect(messages).toHaveLength(3);
+        });
 
-            const [messageBElement, messageCElement, messageAElement] = messages;
+        it('the first message should be B', () => {
+            const messageElements = getAllMessageElements();
+            const firstMessageElement = messageElements[0];
 
-            expect(within(messageAElement).queryByText(messageA)).toBeInTheDocument();
-            expect(within(messageBElement).queryByText(messageB)).toBeInTheDocument();
-            expect(within(messageCElement).queryByText(messageC)).toBeInTheDocument();
+            const expectedContent = messageB;
+            expect(within(firstMessageElement).queryByText(expectedContent)).toBeInTheDocument();
+        });
+
+        it('the second message should be C', () => {
+            const messageElements = getAllMessageElements();
+            const secondMessageElement = messageElements[1];
+
+            const expectedContent = messageC;
+            expect(within(secondMessageElement).queryByText(expectedContent)).toBeInTheDocument();
+        });
+
+        it('the third message should be A', () => {
+            const messageElements = getAllMessageElements();
+            const thirdMessageElement = messageElements[2];
+
+            const expectedContent = messageA;
+            expect(within(thirdMessageElement).queryByText(expectedContent)).toBeInTheDocument();
         });
 
     });
 
 })
+
+function getAllMessageElements() {
+    return screen.queryAllByTestId('message');
+}
