@@ -11,7 +11,6 @@ export const TimeAgo : React.FC<Props> = ({ date }: Props) => {
     const now = instantService.now();
     const relativeDate = formatDistanceStrict(date, now, { addSuffix: true })
 
-
     return (
         <span>{relativeDate}</span>    
     );
