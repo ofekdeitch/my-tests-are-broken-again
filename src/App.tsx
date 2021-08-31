@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import { MessageModel } from './models/message';
+import { Message } from './components/Message';
 import './App.css';
+import { DataViewApi } from './apis/dataview';
 
 function App() {
+  const [messages, setMessages] = useState<MessageModel[]>([]);
+
+  useEffect(() => {
+
+    const init = async () => {
+      const result = await DataViewApi.get();
+      setMessages(result);
+
+    }
+
+    init();
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {messages.map(m => <Message key={m.id} message={m} />)}
     </div>
   );
 }
