@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import _ from 'lodash';
 import { MessageModel } from './models/message';
 import { Message } from './components/Message';
 import { DataViewApi } from './apis/dataview';
@@ -16,7 +17,7 @@ export const App: React.FC<Props> = ({ instantService }: Props) => {
 
     const init = async () => {
       const result = await DataViewApi.get();
-      setMessages(result);
+      setMessages(_.sortBy(result, m => m.createdAt));
 
     }
 

@@ -1,6 +1,7 @@
 import { setupServer, SetupServerApi } from 'msw/node';
 import { rest } from 'msw';
 import { Duration, add } from 'date-fns';
+import _ from 'lodash';
 import { DataViewContract } from '../../../apis/dataview/contracts/dataview';
 import { MessageContract } from '../../../apis/dataview/contracts/message';
 import { URLs } from '../../../apis/urls';
@@ -17,14 +18,17 @@ export class TestDriver {
 
 
     public async start(): Promise<void> {
-        const dataview: DataViewContract = {
-            messages: this.messages
-        };
-
+        const dataview = this.buildDataView();
         await this.mockServer(dataview);
         renderApp({ instantService: this.mockInstantService() });
 
         await this.waitForAppToBeReady();
+    }
+
+    private buildDataView(): DataViewContract {
+        return {
+            messages: _.shuffle(this.messages)
+        };
     }
 
     public stop(): void {

@@ -8,10 +8,9 @@ interface Props {
 
 export const Message: React.FC<Props> = ({ message }: Props) => {
     return (
-        <div>
+        <div data-testid="message">
             <p>{message.body}</p>
             <TimeAgo date={message.createdAt} />
         </div>
-
     );
 }

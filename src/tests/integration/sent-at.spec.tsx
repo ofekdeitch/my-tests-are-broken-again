@@ -3,8 +3,8 @@ import faker from 'faker';
 import { TestDriver } from "../common/driver";
 
 describe('Chat', () => {
-    const hours = faker.datatype.number({ min: 1, max: 10 });
-    const days = faker.datatype.number({ min: 1, max: 10 });
+    const hours = faker.datatype.number({ min: 2, max: 10 });
+    const days = faker.datatype.number({ min: 2, max: 10 });
 
     describe(`When ${hours} hours pass since a message was sent`, () => {
 
