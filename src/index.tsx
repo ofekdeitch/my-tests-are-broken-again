@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { InstantServiceImpl } from './services/instant';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App instantService={new InstantServiceImpl()}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
