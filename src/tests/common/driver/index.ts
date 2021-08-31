@@ -1,17 +1,20 @@
 import { setupServer, SetupServerApi } from 'msw/node';
 import { rest } from 'msw';
+import { Duration, add } from 'date-fns';
 import { DataViewContract } from '../../../apis/dataview/contracts/dataview';
-
 import { MessageContract } from '../../../apis/dataview/contracts/message';
 import { URLs } from '../../../apis/urls';
 import { MessageBuilder } from '../builders/message';
 import { renderApp, teardownApp } from './render';
 import { wait } from '../../../common/wait';
 import { act } from '@testing-library/react';
+import { InstantService } from '../../../services/instant/glossary';
 
 export class TestDriver {
+    private now = new Date();
     private server?: SetupServerApi;
     private messages: MessageContract[] = [];
+
 
     public async start(): Promise<void> {
         const dataview: DataViewContract = {
@@ -19,7 +22,7 @@ export class TestDriver {
         };
 
         await this.mockServer(dataview);
-        renderApp();
+        renderApp({ instantService: this.mockInstantService() });
 
         await this.waitForAppToBeReady();
     }
@@ -29,13 +32,17 @@ export class TestDriver {
         teardownApp();
     }
 
-    public sendMessage(text: string) {
-        const message = (
+    public sendMessage(text?: string) {
+        let builder = (
             new MessageBuilder()
-                .body(text)
-                .build()
-        )
+                .createdAt(this.now)
+        );
 
+        if (text) {
+            builder = builder.body(text);
+        }
+
+        const message = builder.build();
         this.messages.push(message);
     }
 
@@ -62,4 +69,17 @@ export class TestDriver {
         })
     }
 
+    public wait(duration: Duration): void {
+        this.now = add(this.now, duration);
+    }
+
+    private mockInstantService(): InstantService {
+        const self = this;
+
+        return {
+            now(): Date {
+                return self.now;
+            }
+        }
+    }
 }

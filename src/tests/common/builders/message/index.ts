@@ -9,9 +9,14 @@ export class MessageBuilder {
         return this;
     }
 
+    createdAt(value: Date): MessageBuilder {
+        this.value.createdAt = value.toISOString();
+        return this;
+    }
+
     build(): MessageContract {
         return {
-            id: this.value.id ?? faker.random.uuid(),
+            id: this.value.id ?? faker.datatype.uuid(),
             body: this.value.body ?? faker.lorem.words(),
             createdAt: this.value.createdAt ?? faker.date.past().toISOString()
         };
