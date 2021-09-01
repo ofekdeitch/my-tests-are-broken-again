@@ -6,14 +6,14 @@ describe('Chat', () => {
     const hours = faker.datatype.number({ min: 2, max: 10 });
     const days = faker.datatype.number({ min: 2, max: 10 });
 
-    describe(`When ${hours} hours pass since a message was sent`, () => {
+    describe(`When ${hours} hours pass since a thread has been created`, () => {
 
         let driver: TestDriver;
 
         beforeEach(async () => {
             driver = new TestDriver();
 
-            driver.sendMessage();
+            driver.startThread();
             driver.wait({ hours })
 
             await driver.start();
@@ -29,14 +29,14 @@ describe('Chat', () => {
 
     });
 
-    describe(`When ${days} days pass since a message was sent`, () => {
+    describe(`When ${days} days pass since a thread has been created`, () => {
 
         let driver: TestDriver;
 
         beforeEach(async () => {
             driver = new TestDriver();
 
-            driver.sendMessage();
+            driver.startThread();
             driver.wait({ days })
 
             await driver.start();

@@ -3,7 +3,7 @@ import { TestDriver } from "../common/driver";
 
 describe('Chat', () => {
 
-    describe('When 3 messages have been sent', () => {
+    describe('When 3 threads are started', () => {
         const text1 = 'Expressive';
         const text2 = 'Robust';
         const text3 = 'Maintainable';
@@ -13,9 +13,9 @@ describe('Chat', () => {
         beforeEach(async() => {
             driver = new TestDriver();
 
-            driver.sendMessage(text1);
-            driver.sendMessage(text2);
-            driver.sendMessage(text3);
+            driver.startThread(text1);
+            driver.startThread(text2);
+            driver.startThread(text3);
 
             await driver.start();
         });

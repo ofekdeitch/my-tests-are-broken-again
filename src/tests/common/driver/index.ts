@@ -36,7 +36,7 @@ export class TestDriver {
         teardownApp();
     }
 
-    public sendMessage(text?: string) {
+    public startThread(text?: string): MessageContract {
         let builder = (
             new MessageBuilder()
                 .createdAt(this.now)
@@ -48,6 +48,8 @@ export class TestDriver {
 
         const message = builder.build();
         this.messages.push(message);
+
+        return message;
     }
 
     private async mockServer(dataview: DataViewContract): Promise<void> {
@@ -85,5 +87,20 @@ export class TestDriver {
                 return self.now;
             }
         }
+    }
+
+    public replyToThread(parent: MessageContract, text?: string): void {
+        let builder = (
+            new MessageBuilder()
+                .createdAt(this.now)
+                .parentId(parent.id)
+        );
+
+        if (text) {
+            builder = builder.body(text);
+        }
+
+        const message = builder.build();
+        this.messages.push(message);
     }
 }

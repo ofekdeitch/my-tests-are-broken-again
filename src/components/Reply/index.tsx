@@ -6,9 +6,9 @@ interface Props {
     message: MessageModel;
 }
 
-export const Message: React.FC<Props> = ({ message }: Props) => {
+export const Reply: React.FC<Props> = ({ message }: Props) => {
     return (
-        <div data-testid="message">
+        <div data-testid="reply">
             <p>{message.body}</p>
             <TimeAgo date={message.createdAt} />
         </div>
