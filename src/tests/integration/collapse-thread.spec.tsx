@@ -39,7 +39,7 @@ describe('Chat', () => {
 
     });
 
-    describe('When 4 replies are added to a thread', () => {
+    describe('When 5 replies are added to a thread', () => {
 
         const firstReplyMessage = 'Expressive';
         const secondReplyMessage = 'Robust';
