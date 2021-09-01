@@ -3,7 +3,7 @@ import { TestDriver } from "../common/driver";
 
 describe('Chat', () => {
 
-    describe('When 3 messages have been sent', () => {
+    describe('When 3 threads are started', () => {
         const text1 = 'Expressive';
         const text2 = 'Robust';
         const text3 = 'Maintainable';
