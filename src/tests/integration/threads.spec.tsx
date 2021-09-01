@@ -32,7 +32,7 @@ describe('Chat', () => {
             driver.stop();
         });
 
-        it('Replies are appended to their threads', () => {
+        it('Replies are appended to their thread', () => {
             expect(screen.queryByText(threadMessage)).toBeInTheDocument();
             expect(screen.queryByText(firstReplyMessage)).toBeInTheDocument();
             expect(screen.queryByText(secondReplyMessage)).toBeInTheDocument();
