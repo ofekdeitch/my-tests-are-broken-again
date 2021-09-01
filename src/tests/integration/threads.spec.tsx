@@ -1,4 +1,5 @@
 import { screen, within } from '@testing-library/react';
+import { expandThread } from '../common/commands';
 import { TestDriver } from "../common/driver";
 import { getAllReplyElements, getAllThreadElements } from '../common/queries';
 
@@ -32,23 +33,30 @@ describe('Chat', () => {
             driver.stop();
         });
 
-        it('Replies are appended to their thread', () => {
+        it('Replies are appended to their thread', async() => {
+
+            const threads = getAllThreadElements();
+            expect(threads).toHaveLength(1);
+            const threadElement = threads[0];
+
+            await expandThread(threadElement);
+
             expect(screen.queryByText(threadMessage)).toBeInTheDocument();
             expect(screen.queryByText(firstReplyMessage)).toBeInTheDocument();
             expect(screen.queryByText(secondReplyMessage)).toBeInTheDocument();
             expect(screen.queryByText(thirdReplyMessage)).toBeInTheDocument();
 
-            const threads = getAllThreadElements();
-            expect(threads).toHaveLength(1);
 
-            const replies = getAllReplyElements(threads[0]);
+            const replies = getAllReplyElements(threadElement);
             expect(replies).toHaveLength(3);
         });
 
-        it('Replies are sorted by creation time', () => {
+        it('Replies are sorted by creation time', async() => {
             const threads = getAllThreadElements();
+            const threadElement = threads[0];
+            await expandThread(threadElement);
 
-            const replies = getAllReplyElements(threads[0]);
+            const replies = getAllReplyElements(threadElement);
             expect(replies).toHaveLength(3);
 
             const [firstReply, secondReply, thirdReply] = replies;
