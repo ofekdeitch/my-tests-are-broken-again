@@ -19,11 +19,11 @@ export class ThreadMaker {
 
     private buildThreads() {
         const threads = Object.values(this.parents)
-            .map(m => {
-                const replies: MessageModel[] = this.getChildren(m);
+            .map(thread => {
+                const replies: MessageModel[] = this.getChildren(thread);
 
                 return {
-                    ...m,
+                    ...thread,
                     children: _.sortBy(replies, m => m.createdAt)
                 };
             });
@@ -37,7 +37,6 @@ export class ThreadMaker {
                 this.parents[m.id] = m;
             } else {
                 this.addReply(m);
-
             }
         }
     }
@@ -56,7 +55,6 @@ export class ThreadMaker {
         }
     }
 }
-
 
 function isThreadMessage(message: MessageModel): boolean {
     return _.isNil(message.parentId);
