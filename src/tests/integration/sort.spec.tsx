@@ -1,5 +1,6 @@
-import { screen, within } from '@testing-library/react';
+import { within } from '@testing-library/react';
 import { TestDriver } from "../common/driver";
+import { getAllThreadElements } from '../common/queries';
 
 describe('Chat', () => {
 
@@ -13,13 +14,13 @@ describe('Chat', () => {
         beforeEach(async () => {
             driver = new TestDriver();
 
-            driver.sendMessage(messageA);
+            driver.startThread(messageA);
             driver.wait({ seconds: 5 });
 
-            driver.sendMessage(messageB);
+            driver.startThread(messageB);
             driver.wait({ seconds: 5 });
 
-            driver.sendMessage(messageC);
+            driver.startThread(messageC);
 
             await driver.start();
         });
@@ -28,30 +29,30 @@ describe('Chat', () => {
             driver.stop();
         });
 
-        it('should render 3 messsages', () => {
-            const messages = getAllMessageElements();
-            expect(messages).toHaveLength(3);
+        it('should render 3 threads', () => {
+            const threads = getAllThreadElements();
+            expect(threads).toHaveLength(3);
         });
 
-        it('the first message should be A', () => {
-            const messageElements = getAllMessageElements();
-            const firstMessageElement = messageElements[0];
+        it('the first thread should be A', () => {
+            const threadElements = getAllThreadElements();
+            const firstMessageElement = threadElements[0];
 
             const expectedContent = messageA;
             expect(within(firstMessageElement).queryByText(expectedContent)).toBeInTheDocument();
         });
 
-        it('the second message should be B', () => {
-            const messageElements = getAllMessageElements();
-            const secondMessageElement = messageElements[1];
+        it('the second thread should be B', () => {
+            const threadElements = getAllThreadElements();
+            const secondMessageElement = threadElements[1];
 
             const expectedContent = messageB;
             expect(within(secondMessageElement).queryByText(expectedContent)).toBeInTheDocument();
         });
 
-        it('the third message should be C', () => {
-            const messageElements = getAllMessageElements();
-            const thirdMessageElement = messageElements[2];
+        it('the third thread should be C', () => {
+            const threadElements = getAllThreadElements();
+            const thirdMessageElement = threadElements[2];
 
             const expectedContent = messageC;
             expect(within(thirdMessageElement).queryByText(expectedContent)).toBeInTheDocument();
@@ -69,13 +70,13 @@ describe('Chat', () => {
         beforeEach(async () => {
             driver = new TestDriver();
 
-            driver.sendMessage(messageC);
+            driver.startThread(messageC);
             driver.wait({ seconds: 5 });
 
-            driver.sendMessage(messageB);
+            driver.startThread(messageB);
             driver.wait({ seconds: 5 });
 
-            driver.sendMessage(messageA);
+            driver.startThread(messageA);
 
             await driver.start();
         });
@@ -84,30 +85,30 @@ describe('Chat', () => {
             driver.stop();
         });
 
-        it('should render 3 messsages', () => {
-            const messages = getAllMessageElements();
-            expect(messages).toHaveLength(3);
+        it('should render 3 threads', () => {
+            const threads = getAllThreadElements();
+            expect(threads).toHaveLength(3);
         });
 
-        it('the first message should be C', () => {
-            const messageElements = getAllMessageElements();
-            const firstMessageElement = messageElements[0];
+        it('the first thread should be C', () => {
+            const threadElements = getAllThreadElements();
+            const firstMessageElement = threadElements[0];
 
             const expectedContent = messageC;
             expect(within(firstMessageElement).queryByText(expectedContent)).toBeInTheDocument();
         });
 
-        it('the second message should be B', () => {
-            const messageElements = getAllMessageElements();
-            const secondMessageElement = messageElements[1];
+        it('the second thread should be B', () => {
+            const threadElements = getAllThreadElements();
+            const secondMessageElement = threadElements[1];
 
             const expectedContent = messageB;
             expect(within(secondMessageElement).queryByText(expectedContent)).toBeInTheDocument();
         });
 
-        it('the third message should be A', () => {
-            const messageElements = getAllMessageElements();
-            const thirdMessageElement = messageElements[2];
+        it('the third thread should be A', () => {
+            const threadElements = getAllThreadElements();
+            const thirdMessageElement = threadElements[2];
 
             const expectedContent = messageA;
             expect(within(thirdMessageElement).queryByText(expectedContent)).toBeInTheDocument();
@@ -125,13 +126,13 @@ describe('Chat', () => {
         beforeEach(async () => {
             driver = new TestDriver();
 
-            driver.sendMessage(messageB);
+            driver.startThread(messageB);
             driver.wait({ seconds: 5 });
 
-            driver.sendMessage(messageC);
+            driver.startThread(messageC);
             driver.wait({ seconds: 5 });
 
-            driver.sendMessage(messageA);
+            driver.startThread(messageA);
 
             await driver.start();
         });
@@ -140,30 +141,30 @@ describe('Chat', () => {
             driver.stop();
         });
 
-        it('should render 3 messsages', () => {
-            const messages = getAllMessageElements();
-            expect(messages).toHaveLength(3);
+        it('should render 3 threads', () => {
+            const threads = getAllThreadElements();
+            expect(threads).toHaveLength(3);
         });
 
-        it('the first message should be B', () => {
-            const messageElements = getAllMessageElements();
-            const firstMessageElement = messageElements[0];
+        it('the first thread should be B', () => {
+            const threadElements = getAllThreadElements();
+            const firstThreadElement = threadElements[0];
 
             const expectedContent = messageB;
-            expect(within(firstMessageElement).queryByText(expectedContent)).toBeInTheDocument();
+            expect(within(firstThreadElement).queryByText(expectedContent)).toBeInTheDocument();
         });
 
-        it('the second message should be C', () => {
-            const messageElements = getAllMessageElements();
-            const secondMessageElement = messageElements[1];
+        it('the second thread should be C', () => {
+            const threadElements = getAllThreadElements();
+            const secondMessageElement = threadElements[1];
 
             const expectedContent = messageC;
             expect(within(secondMessageElement).queryByText(expectedContent)).toBeInTheDocument();
         });
 
-        it('the third message should be A', () => {
-            const messageElements = getAllMessageElements();
-            const thirdMessageElement = messageElements[2];
+        it('the third thread should be A', () => {
+            const threadElements = getAllThreadElements();
+            const thirdMessageElement = threadElements[2];
 
             const expectedContent = messageA;
             expect(within(thirdMessageElement).queryByText(expectedContent)).toBeInTheDocument();
@@ -171,8 +172,4 @@ describe('Chat', () => {
 
     });
 
-})
-
-function getAllMessageElements() {
-    return screen.queryAllByTestId('message');
-}
+});

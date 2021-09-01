@@ -1,3 +1,4 @@
+import { ThreadMaker } from "../../../common/makeThreads";
 import { MessageModel } from "../../../models/message";
 import { MessageContract, toMessageModel } from "./message";
 
@@ -6,5 +7,6 @@ export interface DataViewContract {
 }
 
 export function toDataViewResult(contract: DataViewContract): MessageModel[] {
-    return contract.messages.map(toMessageModel);
+    const flatMessages = contract.messages.map(toMessageModel);
+    return new ThreadMaker(flatMessages).make();
 }

@@ -13,7 +13,7 @@ describe('Chat', () => {
         beforeEach(async () => {
             driver = new TestDriver();
 
-            driver.sendMessage();
+            driver.startThread();
             driver.wait({ hours })
 
             await driver.start();
@@ -36,7 +36,7 @@ describe('Chat', () => {
         beforeEach(async () => {
             driver = new TestDriver();
 
-            driver.sendMessage();
+            driver.startThread();
             driver.wait({ days })
 
             await driver.start();

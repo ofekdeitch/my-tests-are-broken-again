@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import _ from 'lodash';
 import { MessageModel } from './models/message';
-import { Message } from './components/Message';
+import { Thread } from './components/Thread';
 import { DataViewApi } from './apis/dataview';
 import { Providers } from './providers';
 import { InstantService } from './services/instant/glossary';
@@ -17,8 +16,7 @@ export const App: React.FC<Props> = ({ instantService }: Props) => {
 
     const init = async () => {
       const result = await DataViewApi.get();
-      setMessages(_.sortBy(result, m => m.createdAt));
-
+      setMessages(result);
     }
 
     init();
@@ -27,7 +25,7 @@ export const App: React.FC<Props> = ({ instantService }: Props) => {
   return (
     <Providers instantService={instantService}>
       <div>
-        {messages.map(m => <Message key={m.id} message={m} />)}
+        {messages.map(m => <Thread key={m.id} message={m} />)}
       </div>
     </Providers>
   );
